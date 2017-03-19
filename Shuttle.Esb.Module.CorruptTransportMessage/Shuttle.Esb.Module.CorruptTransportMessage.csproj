@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap.cs" />
     <Compile Include="CorruptTransportMessageConfiguration.cs" />
     <Compile Include="CorruptTransportMessageResources.Designer.cs">
       <AutoGen>True</AutoGen>
