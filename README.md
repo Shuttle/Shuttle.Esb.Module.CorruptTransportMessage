@@ -15,3 +15,5 @@ It will log any transport messages that fail deserailization via the `ServiceBus
 ```
 
 The default value for the `folder` attribute is `.\corrupt-transport-messages`.
+
+The module will register itself using the [container bootstrapping](http://shuttle.github.io/shuttle-core/overview-container/#Bootstrapping).
