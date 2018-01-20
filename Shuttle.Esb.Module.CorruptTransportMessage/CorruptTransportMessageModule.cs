@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Contract;
+using Shuttle.Core.Streams;
 
 namespace Shuttle.Esb.Module.CorruptTransportMessage
 {
@@ -10,17 +11,16 @@ namespace Shuttle.Esb.Module.CorruptTransportMessage
 
         public CorruptTransportMessageModule(IServiceBusEvents events, ICorruptTransportMessageConfiguration corruptTransportMessageConfiguration)
         {
-            Guard.AgainstNull(events, "events");
+            Guard.AgainstNull(events, nameof(events));Guard.AgainstNull(events, nameof(events));
 
 	        _corruptTransportMessageFolder = corruptTransportMessageConfiguration.CorruptTransportMessageFolder;
 
 			events.TransportMessageDeserializationException += OnTransportMessageDeserializationException;
         }
 
-        private void OnTransportMessageDeserializationException(object sender,
-            DeserializationExceptionEventArgs deserializationExceptionEventArgs)
+        private void OnTransportMessageDeserializationException(object sender, DeserializationExceptionEventArgs deserializationExceptionEventArgs)
         {
-            var filePath = Path.Combine(_corruptTransportMessageFolder, string.Format("{0}.stm", Guid.NewGuid()));
+            var filePath = Path.Combine(_corruptTransportMessageFolder, $"{Guid.NewGuid()}.stm");
 
             using (Stream file = File.OpenWrite(filePath))
             using (

@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Infrastructure;
+﻿using Shuttle.Core.Container;
+using Shuttle.Core.Contract;
 
 namespace Shuttle.Esb.Module.CorruptTransportMessage
 {
@@ -11,22 +12,26 @@ namespace Shuttle.Esb.Module.CorruptTransportMessage
 
 		public void Register(IComponentRegistry registry)
 		{
-			Guard.AgainstNull(registry, "registry");
+			Guard.AgainstNull(registry, nameof(registry));Guard.AgainstNull(registry, nameof(registry));
 
 			if (_registryBootstrapCalled)
 			{
 				return;
 			}
 
-			registry.AttemptRegister(CorruptTransportMessageSection.Configuration());
-			registry.AttemptRegister<CorruptTransportMessageModule>();
+		    if (!registry.IsRegistered<ICorruptTransportMessageConfiguration>())
+		    {
+		        registry.AttemptRegisterInstance(CorruptTransportMessageSection.Configuration());
+		    }
+
+		    registry.AttemptRegister<CorruptTransportMessageModule>();
 
 			_registryBootstrapCalled = true;
 		}
 
 		public void Resolve(IComponentResolver resolver)
 		{
-			Guard.AgainstNull(resolver, "resolver");
+			Guard.AgainstNull(resolver, nameof(resolver));Guard.AgainstNull(resolver, nameof(resolver));
 
 			if (_resolverBootstrapCalled)
 			{
