@@ -16,4 +16,8 @@ It will log any transport messages that fail deserailization via the `ServiceBus
 
 The default value for the `folder` attribute is `.\corrupt-transport-messages`.
 
-The module will register itself using the [container bootstrapping](http://shuttle.github.io/shuttle-core/overview-container/#Bootstrapping).
+# Registration / Activation
+
+The required components may be registered by calling `ComponentRegistryExtensions.RegisterCorruptTransportMessage(IComponentRegistry)`.
+
+In order for the module to attach to the `IPipelineFactory` you would need to resolve it using `IComponentResolver.Resolve<CorruptTransportMessageModule>()`.
