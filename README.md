@@ -20,7 +20,7 @@ It will log any transport messages that fail deserailization via the `ServiceBus
 
 The default value for the `folder` attribute is `.\corrupt-transport-messages`.
 
-# Registration / Activation
+## Registration / Activation
 
 The required components may be registered by calling `ComponentRegistryExtensions.RegisterCorruptTransportMessage(IComponentRegistry)`.
 
