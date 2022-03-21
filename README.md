@@ -1,4 +1,8 @@
-# Shuttle.Esb.Module.CorruptTransportMessage
+# Corrupt Transport Message
+
+```
+PM> Install-Package Shuttle.Esb.Module.CorruptTransportMessage
+```
 
 The CorruptTransportMessage module for Shuttle.Esb writes any transport messages that fail to deserialize to disk.
 
