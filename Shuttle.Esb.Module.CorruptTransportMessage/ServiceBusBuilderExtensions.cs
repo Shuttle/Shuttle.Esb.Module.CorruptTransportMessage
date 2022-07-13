@@ -17,6 +17,7 @@ namespace Shuttle.Esb.Module.CorruptTransportMessage
             builder?.Invoke(corruptTransportMessageBuilder);
 
             serviceBusBuilder.Services.TryAddSingleton<CorruptTransportMessageModule, CorruptTransportMessageModule>();
+            serviceBusBuilder.Services.TryAddSingleton<CorruptTransportMessageO, CorruptTransportMessageModule>();
 
             serviceBusBuilder.Services.AddOptions<CorruptTransportMessageOptions>().Configure(options =>
             {
