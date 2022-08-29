@@ -6,7 +6,7 @@ using Shuttle.Core.Pipelines;
 
 namespace Shuttle.Esb.Module.CorruptTransportMessage
 {
-    public static class ServiceBusBuilderExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddCorruptTransportMessageModule(this IServiceCollection services,
             Action<CorruptTransportMessageBuilder> builder = null)
