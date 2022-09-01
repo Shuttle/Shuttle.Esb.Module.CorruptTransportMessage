@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Streams;
 
@@ -9,13 +10,15 @@ namespace Shuttle.Esb.Module.CorruptTransportMessage
     {
         private readonly string _corruptTransportMessageFolder;
 
-        public CorruptTransportMessageModule(IServiceBusEvents events, ICorruptTransportMessageConfiguration corruptTransportMessageConfiguration)
+        public CorruptTransportMessageModule(IOptions<CorruptTransportMessageOptions> corruptTransportMessageOptions, IDeserializeTransportMessageObserver deserializeTransportMessageObserver)
         {
-            Guard.AgainstNull(events, nameof(events));Guard.AgainstNull(events, nameof(events));
+            Guard.AgainstNull(corruptTransportMessageOptions, nameof(corruptTransportMessageOptions));
+            Guard.AgainstNull(corruptTransportMessageOptions.Value, nameof(corruptTransportMessageOptions.Value));
+            Guard.AgainstNull(deserializeTransportMessageObserver, nameof(deserializeTransportMessageObserver));
 
-	        _corruptTransportMessageFolder = corruptTransportMessageConfiguration.CorruptTransportMessageFolder;
+	        _corruptTransportMessageFolder = corruptTransportMessageOptions.Value.MessageFolder;
 
-			events.TransportMessageDeserializationException += OnTransportMessageDeserializationException;
+            deserializeTransportMessageObserver.TransportMessageDeserializationException += OnTransportMessageDeserializationException;
         }
 
         private void OnTransportMessageDeserializationException(object sender, DeserializationExceptionEventArgs deserializationExceptionEventArgs)
